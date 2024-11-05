@@ -16,7 +16,7 @@ export const FetchQuestionAndAnswer = ({showInput= true}) => {
     return (
         <div className="flex flex-col gap-5 text-center">
             {showInput && <label className="text-sm sm:text-base text-white">
-                <span className="ml-2">API Key:</span>
+                <span className="ml-2">OPENAI_API_KEY:</span>
                 <input className="text-sm sm:text-base text-black" value={apiKey} onChange={e => setApiKey(e.target.value)}/>
             </label>}
             <button
