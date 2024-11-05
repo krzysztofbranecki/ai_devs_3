@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     if (req.method !== "POST") {
         return Response.json({errorMessage: "Method Not Allowed"});
     }
-    const apiKey = process.env.OPENAI_API_KEY ?? await req.headers.get("x-api-key");
+    const apiKey = process.env.OPENAI_API_KEY ?? await req.headers.get("x-api-key") ?? undefined;
 
     const response = await fetch('https://xyz.ag3nts.org/verify', {
         method: 'POST',
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         return response.json()
     }).then(response => {
         const id = response.msgID;
-        const question = response.text;
+        const question = response.text as string;
         return askQuestion(question, context, apiKey).then(async (answer) => {
             return fetch('https://xyz.ag3nts.org/verify', {
                 method: 'POST',
