@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     }
     const apiKey = process.env.OPENAI_API_KEY ?? await req.headers.get("x-api-key") ?? undefined;
 
-    const response = await fetch('https://xyz.ag3nts.org/verify', {
+    const response = await fetch(`${process.env.COMPANY_URL}/verify`, {
         method: 'POST',
         headers: {
             'Content-Type': 'text/html',
@@ -23,8 +23,8 @@ export async function POST(req: Request) {
     }).then(response => {
         const id = response.msgID;
         const question = response.text as string;
-        return askQuestion(question, context, apiKey).then(async (answer) => {
-            return fetch('https://xyz.ag3nts.org/verify', {
+        return askQuestion({question, context, apiKey}).then(async (answer) => {
+            return fetch(`${process.env.COMPANY_URL}/verify`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8',
