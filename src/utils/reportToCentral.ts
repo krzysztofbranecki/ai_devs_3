@@ -1,9 +1,4 @@
-interface IBody {
-    task: string;
-    answer: object;
-}
-
-export async function reportToCentral(body: IBody) {
+export async function reportToCentral(body: { task: string; answer: string | null | void }) {
 
     return await fetch(`${process.env.CENTRAL_URL}/report`, {
         method: 'POST',
